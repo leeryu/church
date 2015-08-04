@@ -30,6 +30,10 @@ public class PaginationInfoVo {
     boolean isNextBtnView;
     /** 이전 페이지 버튼 활성화 유무 **/
     boolean isPreviousBtnView;
+    /** 전체 게시물 행 수 **/
+    int totalRowCount;
+    /** 페이지 게시물 갯수 **/
+    int recordCountPerPage;
 
     public int getTotalPageCount() {
         return totalPageCount;
@@ -63,20 +67,20 @@ public class PaginationInfoVo {
         this.currentPageIndex = currentPageIndex;
     }
 
-    public boolean isNextBtnView() {
-        return isNextBtnView;
-    }
-
     public void setIsNextBtnView(boolean isNextBtnView) {
         this.isNextBtnView = isNextBtnView;
     }
 
-    public boolean isPreviousBtnView() {
-        return isPreviousBtnView;
-    }
-
     public void setIsPreviousBtnView(boolean isPreviousBtnView) {
         this.isPreviousBtnView = isPreviousBtnView;
+    }
+
+    public boolean getIsNextBtnView() {
+        return isNextBtnView;
+    }
+
+    public boolean getIsPreviousBtnView() {
+        return isPreviousBtnView;
     }
 
     public int getFirstPageNoOnNextPageList() {
@@ -87,6 +91,10 @@ public class PaginationInfoVo {
         this.firstPageNoOnNextPageList = firstPageNoOnNextPageList;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFirstPageNoOnPreviousPageList() {
         return firstPageNoOnPreviousPageList;
     }
@@ -95,4 +103,34 @@ public class PaginationInfoVo {
         this.firstPageNoOnPreviousPageList = firstPageNoOnPreviousPageList;
     }
 
+    public int getTotalRowCount() {
+        return totalRowCount;
+    }
+
+    public void setTotalRowCount(int totalRowCount) {
+        this.totalRowCount = totalRowCount;
+    }
+
+    public int getRecordCountPerPage() {
+        return recordCountPerPage;
+    }
+
+    public void setRecordCountPerPage(int recordCountPerPage) {
+        this.recordCountPerPage = recordCountPerPage;
+    }
+
+    @Override public String toString() {
+        return "PaginationInfoVo{" +
+            "totalPageCount=" + totalPageCount +
+            ", currentPageIndex=" + currentPageIndex +
+            ", firstPageNoOnPageList=" + firstPageNoOnPageList +
+            ", lastPageNoOnPageList=" + lastPageNoOnPageList +
+            ", firstPageNoOnNextPageList=" + firstPageNoOnNextPageList +
+            ", firstPageNoOnPreviousPageList=" + firstPageNoOnPreviousPageList +
+            ", isNextBtnView=" + isNextBtnView +
+            ", isPreviousBtnView=" + isPreviousBtnView +
+            ", totalRowCount=" + totalRowCount +
+            ", recordCountPerPage=" + recordCountPerPage +
+            '}';
+    }
 }

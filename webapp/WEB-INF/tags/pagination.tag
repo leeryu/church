@@ -1,12 +1,12 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="href"     required="true" %>
-<%@ attribute name="pageVo"   required="true" %>
+<%@ attribute name="pageVo"   required="true" type="com.church.common.vo.PaginationInfoVo" %>
 <%@ include file="/WEB-INF/jsp/pages/include/include_commonTags.jsp"  %>
-
+<% System.out.println(pageVo.toString());%>
 <nav>
     <ul class="pagination">
         <li class="${pageVo.isPreviousBtnView ? '':'disabled'}">
-            <a href="${href}?pageIndex=${pageVo.firstPageNoOnPreviousPageList}" aria-label="Previous">
+          <a href="${href}?pageIndex=${pageVo.firstPageNoOnPreviousPageList}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>

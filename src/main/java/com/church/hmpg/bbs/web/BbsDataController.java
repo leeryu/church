@@ -29,22 +29,22 @@ import javax.annotation.Resource;
 @RequestMapping(value = "/hmpg")
 public class BbsDataController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+        private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Resource(name = "bbsDataService") BbsDataService bbsDataService;
+        @Resource(name = "bbsDataService") BbsDataService bbsDataService;
 
-    @RequestMapping(value = {"/board", "/board/list"})
-    public String selectBoardList(@ModelAttribute("bbsDataVo") BbsDataVo bbsDataVo, ModelMap model) throws Exception {
+        @RequestMapping(value = {"/board", "/board/list"})
+        public String selectBoardList(@ModelAttribute("bbsDataVo") BbsDataVo bbsDataVo, ModelMap model) throws Exception {
 
-        PaginationCaculateUtil.cacualtePagination(bbsDataVo);
+            PaginationCaculateUtil.cacualtePagination(bbsDataVo);
 
-        model.addAttribute("selectList", bbsDataService.selectList(bbsDataVo));
+            model.addAttribute("selectList", bbsDataService.selectList(bbsDataVo));
 
-        bbsDataVo.setTotalRecordCount(this.bbsDataService.selectTotalCount(bbsDataVo));
+            bbsDataVo.setTotalRecordCount(this.bbsDataService.selectTotalCount(bbsDataVo));
 
-        model.addAttribute("paginationVo", PaginationCaculateUtil.getPaginationVo(bbsDataVo));
+            model.addAttribute("paginationVo", PaginationCaculateUtil.getPaginationVo(bbsDataVo));
 
-        return "hmpg/bbs/BbsDataList";
+            return "hmpg/bbs/BbsDataList";
     }
 
     @RequestMapping(value = "/board/view/{dataSid}", method = RequestMethod.GET)

@@ -38,7 +38,7 @@
                     <tbody>
                     <c:forEach var="item" items="${selectList}" varStatus="status">
                         <tr>
-                            <td>${status.count}</td>
+                            <td><ctags:rowNum pageVo="${paginationVo}" index="${status.index}"/></td>
                             <td><a href="/hmpg/board/view/${item.dataSid}" >${item.dataTitle}</a></td>
                             <td>0</td>
                             <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${item.registerDate}"/></td>

@@ -49,7 +49,8 @@ public class PaginationCaculateUtil {
     public static PaginationInfoVo getPaginationVo(PaginationVo paginationVo) {
 
         PaginationInfoVo paginationInfoVo = new PaginationInfoVo();
-
+        paginationInfoVo.setRecordCountPerPage(paginationVo.getPageSize());
+        paginationInfoVo.setTotalRowCount(paginationVo.getTotalRecordCount());
         paginationInfoVo.setTotalPageCount(getTotalPageCount(paginationVo));
         paginationInfoVo.setCurrentPageIndex(paginationVo.getPageIndex());
         paginationInfoVo.setFirstPageNoOnPageList(getFirstPageNoOnPageList(paginationVo));
@@ -68,7 +69,7 @@ public class PaginationCaculateUtil {
      * @return
      */
     private static int getTotalPageCount(PaginationVo vo) {
-        return (vo.getTotalRecordCount() / vo.getPageUnit()) + (int)((vo.getTotalRecordCount() % vo.getPageUnit()) * 1);
+        return (vo.getTotalRecordCount() / vo.getPageUnit()) + (vo.getTotalRecordCount() % vo.getPageUnit() >= 1 ? 1:0);
     }
 
     /**
@@ -86,10 +87,10 @@ public class PaginationCaculateUtil {
      * @return
      */
     private static int getLastPageNoOnPageList(PaginationVo paginationVo) {
-        if((paginationVo.getPageIndex() * paginationVo.getPageSize()) > getTotalPageCount(paginationVo)){
-            return (getTotalPageCount(paginationVo) * paginationVo.getPageSize()) + (paginationVo.getTotalRecordCount() % getTotalPageCount(paginationVo));
+        if(paginationVo.getPageIndex() >= getTotalPageCount(paginationVo)){
+            return getFirstPageNoOnPageList(paginationVo) ;
         }
-        return (paginationVo.getPageIndex() * paginationVo.getPageSize());
+        return  getFirstPageNoOnPageList(paginationVo) + (paginationVo.getPageSize() - 1) ;
     }
 
     /**
@@ -123,9 +124,9 @@ public class PaginationCaculateUtil {
      */
     private static int getFirstPageNoOnNextPageList(PaginationVo paginationVo) {
         if(hasNextPageList(paginationVo)){
-            return  (paginationVo.getPageIndex() / paginationVo.getPageSize()) * paginationVo.getPageSize() + 1;
+            return  (getFirstPageNoOnPageList(paginationVo) + paginationVo.getPageSize());
         }
-        return 0;
+        return 1;
     }
 
     /**
@@ -135,10 +136,9 @@ public class PaginationCaculateUtil {
      */
     private static int getFirstPageNoOnPreviousPageList(PaginationVo paginationVo) {
         if(hasPreviousPageList(paginationVo)){
-            return  ((paginationVo.getPageIndex() - 2) / paginationVo.getPageSize()) * paginationVo.getPageSize() + 1;
+            return  (getFirstPageNoOnPageList(paginationVo) - paginationVo.getPageSize());
         }
-        return 0;
+        return 1;
     }
-
 
 }
