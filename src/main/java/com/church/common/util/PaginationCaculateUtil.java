@@ -25,6 +25,7 @@ public class PaginationCaculateUtil {
     private PaginationCaculateUtil(){}
 
     public static void cacualtePagination(PaginationVo vo){
+        setCurrentPageIndex(vo);
         setFirstPageIndex(vo);
         setRecordCountPerPage(vo);
     }
@@ -41,12 +42,20 @@ public class PaginationCaculateUtil {
         vo.setRecordCountPerPage(vo.getPageUnit());
     }
 
+    private static void setCurrentPageIndex(PaginationVo vo) {
+        if(vo.getPageIndex() < 1)
+           vo.setPageIndex(1);
+        else if(vo.getPageIndex() > getTotalPageCount(vo)){
+           vo.setPageIndex(getTotalPageCount(vo));
+        }
+    }
+
     /**
      *
      * @param paginationVo
      * @return
      */
-    public static PaginationInfoVo getPaginationVo(PaginationVo paginationVo) {
+    public static PaginationInfoVo getPaginationInfoVo(PaginationVo paginationVo) {
 
         PaginationInfoVo paginationInfoVo = new PaginationInfoVo();
         paginationInfoVo.setRecordCountPerPage(paginationVo.getPageSize());
@@ -65,9 +74,9 @@ public class PaginationCaculateUtil {
 
     /**
      *
-     * @param vo
-     * @return
-     */
+    * @param vo
+    * @return
+        */
     private static int getTotalPageCount(PaginationVo vo) {
         return (vo.getTotalRecordCount() / vo.getPageUnit()) + (vo.getTotalRecordCount() % vo.getPageUnit() >= 1 ? 1:0);
     }

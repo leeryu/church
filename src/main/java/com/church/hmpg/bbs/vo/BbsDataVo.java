@@ -1,7 +1,7 @@
 package com.church.hmpg.bbs.vo;
 
 import com.church.common.vo.ComDefaultVO;
-
+import org.hibernate.validator.constraints.NotEmpty;
 import java.util.Date;
 
 /**
@@ -18,8 +18,10 @@ import java.util.Date;
  */
 public class BbsDataVo extends ComDefaultVO { private static final long serialVersionUID = 1L;
 
+    @NotEmpty(groups = {BbsData.class})
     private Integer dataSid;
     // 게시판 일련번호
+    @NotEmpty(groups = {Default.class})
     private Integer boardSid;
     private String boardId;
     private String userId;
@@ -31,7 +33,7 @@ public class BbsDataVo extends ComDefaultVO { private static final long serialVe
     private String dataSecret;
     private String delStatus;
     private String viewCount;
-    private Date modifyDate;
+    private Date   modifyDate;
     private Date   registerDate;
     // 카테고리1차
     private String categoryCode1;
@@ -313,4 +315,25 @@ public class BbsDataVo extends ComDefaultVO { private static final long serialVe
         this.categoryCode3 = categoryCode3;
     }
 
+    @Override public String toString() {
+        return "BbsDataVo{" +
+            "dataSid=" + dataSid +
+            ", boardSid=" + boardSid +
+            ", boardId='" + boardId + '\'' +
+            ", userId='" + userId + '\'' +
+            ", userPw='" + userPw + '\'' +
+            ", userNick='" + userNick + '\'' +
+            ", userEmail='" + userEmail + '\'' +
+            ", dataTitle='" + dataTitle + '\'' +
+            ", dataNotice='" + dataNotice + '\'' +
+            ", dataSecret='" + dataSecret + '\'' +
+            ", delStatus='" + delStatus + '\'' +
+            ", viewCount='" + viewCount + '\'' +
+            ", modifyDate=" + modifyDate +
+            ", registerDate=" + registerDate +
+            ", categoryCode1='" + categoryCode1 + '\'' +
+            ", categoryCode2='" + categoryCode2 + '\'' +
+            ", categoryCode3='" + categoryCode3 + '\'' +
+            '}';
+    }
 }

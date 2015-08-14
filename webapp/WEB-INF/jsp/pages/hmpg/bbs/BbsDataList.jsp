@@ -8,53 +8,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/jsp/pages/include/include_commonTags.jsp"%>
 
-<ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Library</a></li>
-    <li class="active">Data</li>
-</ol>
-<div class="row">
-    <div class="col-xs-12 container-fluid">
+<ctags:breadcrumb/>
 
-            <div class="table-responsive">
-                <div class="pull-right">
-                    <button class="btn btn-default" type="submit" id="btn-regist">등록</button>
+<form:form id="form1" method="get" commandName="bbsDataVo">
+    <form:hidden path="pageIndex" id="pageIndex"/>
+
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <div class="pull-left">
+                        <form:select id="searchPageUnit" path="searchPageUnit" cssClass="form-control" >
+                            <form:option value="10" id="A" title="" label="10"/>
+                            <form:option value="20" id="B" title="" label="20"/>
+                        </form:select>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-default" type="submit" id="btn-regist">등록</button>
+                    </div>
+                    <table class="table">
+                        <colgroup>
+                            <col width="5%"/>
+                            <col width="auto"/>
+                            <col width="10%"/>
+                            <col width="20%"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                               <th>No</th>
+                               <th>제목</th>
+                               <th>조회수</th>
+                               <th>등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="item" items="${selectList}" varStatus="status">
+                            <tr>
+                                <td><ctags:rowNum pageVo="${paginationInfoVo}" index="${status.index}"/></td>
+                                <td><a href="#" onclick="whenViewPage('${item.dataSid}');return false;">${item.dataTitle}</a></td>
+                                <td><span class="badge">${item.viewCount}</span></td>
+                                <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${item.registerDate}"/></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <ctags:pagination pageVo="${paginationInfoVo}" function="whenGoPage"/>
                 </div>
-                <table class="table">
-                    <colgroup>
-                        <col width="5%"/>
-                        <col width="auto"/>
-                        <col width="10%"/>
-                        <col width="20%"/>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                           <th>No</th>
-                           <th>제목</th>
-                           <th>조회수</th>
-                           <th>등록일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="item" items="${selectList}" varStatus="status">
-                        <tr>
-                            <td><ctags:rowNum pageVo="${paginationVo}" index="${status.index}"/></td>
-                            <td><a href="/hmpg/board/view/${item.dataSid}" >${item.dataTitle}</a></td>
-                            <td>0</td>
-                            <td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${item.registerDate}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <ctags:pagination pageVo="${paginationVo}" href="/hmpg/board/list"/>
             </div>
+        </div>
     </div>
-</div>
+
+</form:form>
 <script type="text/javascript" defer="defer" >
     $(function(){
         $("#btn-regist").on("click", function(){
-            alert("hello");
+            $(form1).prop("action","/hmpg/boards/${bbsDataVo.boardSid}/new")
+                    .prop("method","GET").submit();
+        });
+
+        $("#searchPageUnit").on("change", function(){
+            $(form1).submit();
         });
 
     });
+
+    function whenGoPage(pageIndex){
+        $("#pageIndex").val(pageIndex);
+        $(form1).submit();
+    }
+
+    function whenViewPage(dataSid){
+        $(form1).prop("action","/hmpg/boards/${bbsDataVo.boardSid}/"+dataSid).submit();
+    }
 </script>

@@ -26,7 +26,7 @@
                     <a href="about.html">안내</a>
                 </li>
                 <li>
-                    <a href="/hmpg/board/list">게시판</a>
+                    <a href="/hmpg/boards/1">게시판</a>
                 </li>
                 <li>
                     <a href="contact.html">Contact</a>

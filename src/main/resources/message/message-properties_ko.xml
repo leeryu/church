@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>message-properties_kr</comment>
+    <entry key="msg.insert.success">등록에 성공 하였습니다.</entry>
+    <entry key="msg.insert.failed">등록에 실패 하였습니다.</entry>
+    <entry key="msg.update.success">수정에 성공 하였습니다.</entry>
+    <entry key="msg.update.failed">수정에 실패 하였습니다.</entry>
+    <entry key="msg.delete.success">삭제에 성공 하였습니다.</entry>
+    <entry key="msg.delete.failed">삭제에 실패 햐였습니다.</entry>
+    <entry key="msg.delete.failed">삭제에 실패 햐였습니다.</entry>
+    <entry key="msg.alert.not_empty">해당 메세지는 빈값이 허용되지 않습니다.</entry>
+    <entry key="btn.update">수정</entry>
+    <entry key="btn.list">목록</entry>
+    <entry key="btn.save">저장</entry>
+    <entry key="btn.insert">등록</entry>
+
+</properties>

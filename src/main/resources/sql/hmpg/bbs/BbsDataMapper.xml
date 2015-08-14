@@ -31,7 +31,8 @@
                ,category_code2 /* 카테고리2차 */
                ,category_code3 /* 카테고리3차 */
         FROM   LR_COMTNBBSDATA
-
+        WHERE  board_sid = #{boardSid}
+        AND    IFNULL(DEL_STATUS,'N') = 'N'
         <include refid="selectSearchWhere"/>
 
         ORDER  BY data_sid DESC
@@ -42,7 +43,8 @@
     <select id="selectTotalCount" resultType="int">
         SELECT COUNT(data_sid)
         FROM   LR_COMTNBBSDATA
-
+        WHERE  board_sid = #{boardSid}
+        AND    IFNULL(DEL_STATUS,'N') = 'N'
         <include refid="selectSearchWhere"/>
     </select>
 
@@ -66,31 +68,85 @@
                 ,category_code2    /* 카테고리2차 */
                 ,category_code3    /* 카테고리3차 */
         FROM    LR_COMTNBBSDATA
-        WHERE   data_sid        = #{dataSid}
+        WHERE   board_sid = #{boardSid}
+        AND     data_sid  = #{dataSid}
+        AND     IFNULL(DEL_STATUS,'N') = 'N'
+    </select>
+
+    <!-- 이전 글 조회 -->
+    <select id="selectPrevView" resultType="bbsDataVo">
+         SELECT  data_sid
+                ,board_sid         /* 게시판 일련번호 */
+                ,board_id
+                ,user_id
+                ,user_pw
+                ,user_nick
+                ,user_email
+                ,data_title
+                ,data_notice
+                ,data_secret
+                ,del_status
+                ,view_count
+                ,modify_date
+                ,register_date
+                ,category_code1    /* 카테고리1차 */
+                ,category_code2    /* 카테고리2차 */
+                ,category_code3    /* 카테고리3차 */
+        FROM    LR_COMTNBBSDATA
+        WHERE   board_sid = #{boardSid}
+        <![CDATA[
+        AND     data_sid  < #{dataSid}
+        ]]>
+        AND     IFNULL(DEL_STATUS,'N') = 'N'
+        ORDER   BY data_sid DESC
+        LIMIT 1
+    </select>
+
+    <!-- 다음 글 조회 -->
+    <select id="selectNextView" resultType="bbsDataVo">
+        SELECT data_sid
+              ,board_sid         /* 게시판 일련번호 */
+              ,board_id
+              ,user_id
+              ,user_pw
+              ,user_nick
+              ,user_email
+              ,data_title
+              ,data_notice
+              ,data_secret
+              ,del_status
+              ,view_count
+              ,modify_date
+              ,register_date
+              ,category_code1    /* 카테고리1차 */
+              ,category_code2    /* 카테고리2차 */
+              ,category_code3    /* 카테고리3차 */
+        FROM  LR_COMTNBBSDATA
+        WHERE board_sid = #{boardSid}
+        <![CDATA[
+        AND   data_sid  > #{dataSid}
+        ]]>
+        AND   IFNULL(DEL_STATUS,'N') = 'N'
+        ORDER BY data_sid
+        LIMIT 1
     </select>
 
     <!--  입력 -->
     <insert id="insert">
         INSERT INTO LR_COMTNBBSDATA (
-         board_sid         /* 게시판 일련번호 */
-        ,board_id
-        ,user_id
+         user_id
         ,user_pw
         ,user_nick
         ,user_email
         ,data_title
         ,data_notice
         ,data_secret
-        ,del_status
-        ,view_count
         ,modify_date
         ,register_date
         ,category_code1    /* 카테고리1차 */
         ,category_code2    /* 카테고리2차 */
         ,category_code3    /* 카테고리3차 */
         ) VALUES (
-        ,#{boardSid}
-        ,#{boardId}
         ,#{userId}
         ,#{userPw}
         ,#{userNick}
@@ -98,10 +154,8 @@
         ,#{dataTitle}
         ,#{dataNotice}
         ,#{dataSecret}
-        ,#{delStatus}
-        ,#{viewCount}
-        ,#{modifyDate}
-        ,#{registerDate}
+        ,NOW()
+        ,NOW()
         ,#{categoryCode1}
         ,#{categoryCode2}
         ,#{categoryCode3}
@@ -111,22 +165,14 @@
     <!--  수정 -->
     <update id="update">
         UPDATE  LR_COMTNBBSDATA
-        SET      board_sid      = #{boardSid}               /* 게시판 일련번호 */
-                ,board_id       = #{boardId}
-                ,user_id        = #{userId}
+        SET      user_id        = #{userId}
                 ,user_pw        = #{userPw}
                 ,user_nick      = #{userNick}
                 ,user_email     = #{userEmail}
                 ,data_title     = #{dataTitle}
                 ,data_notice    = #{dataNotice}
                 ,data_secret    = #{dataSecret}
-                ,del_status     = #{delStatus}
-                ,view_count     = #{viewCount}
-                ,modify_date    = #{modifyDate}
-                ,register_date  = #{registerDate}
-                ,category_code1 = #{categoryCode1}          /* 카테고리1차 */
-                ,category_code2 = #{categoryCode2}          /* 카테고리2차 */
-                ,category_code3 = #{categoryCode3}          /* 카테고리3차 */
+                ,modify_date    = NOW()
         WHERE   data_sid        = #{dataSid}
     </update>
 
@@ -136,6 +182,12 @@
         FROM   LR_COMTNBBSDATA
         WHERE  data_sid        = #{dataSid}
     </delete>
+
+    <!-- 조회 수 증가 -->
+    <update id="updateViewCount">
+        UPDATE  LR_COMTNBBSDATA
+        SET     view_count = view_count + 1
+        WHERE   DATA_SID   = ${dataSid}
+    </update>
+
 </mapper>
-
-

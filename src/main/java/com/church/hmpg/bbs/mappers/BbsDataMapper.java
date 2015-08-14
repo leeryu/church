@@ -14,8 +14,10 @@ public interface BbsDataMapper {
     List<BbsDataVo> selectList(BbsDataVo bbsDataVo) throws Exception;
     int selectTotalCount(BbsDataVo bbsDataVo) throws Exception;
     BbsDataVo select(BbsDataVo bbsDataVo) throws Exception;
+    BbsDataVo selectPrevView(BbsDataVo bbsDataVo) throws Exception;
+    BbsDataVo selectNextView(BbsDataVo bbsDataVo) throws Exception;
     void delete(BbsDataVo bbsDataVo) throws Exception;
     void insert(BbsDataVo bbsDataVo) throws Exception;
     void update(BbsDataVo bbsDataVo) throws Exception;
-
+    void updateViewCount(BbsDataVo bbsDataVo) throws Exception;
 }

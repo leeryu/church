@@ -12,40 +12,21 @@
 
     <context:component-scan base-package="com.church"/>
 
-    <!-- For Pagination Tag 설정-->
-<!--    <bean id="defaultPageRenderer" class="lr.web_messenger.common.pagination.DefaultPageRenderer" />-->
-    <!-- For Pagination Tag -->
-<!--    <bean id="webPaginationManager" class="lr.web_messenger.common.pagination.DefaultPaginationManager">
-        <property name="rendererType">
-            <map>
-                <entry key="default" value-ref="defaultPageRenderer"/> 
-            </map>
-        </property>
-    </bean>-->
-
     <!-- 프로퍼티 파일 위치 설정 -->
-<!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8"/>
         <property name="basenames">
             <list>
-                <value>classpath:/messenger/message/message-common</value>
-                <value>classpath:/messenger/message/etc-common</value>
-                <value>classpath:/messenger/message/key-common</value>
+                <value>classpath:/message/message-properties</value>
             </list>
         </property>
-        <property name="cacheSeconds" value="60"/>
-    </bean>-->
-
-    <!-- 메시지소스빈 설정 -->
-<!--    <bean id="egovMessageSource" class="lr.web_messenger.common.util.MessengerMessageSource">
-        <property name="reloadableResourceBundleMessageSource" ref="messageSource"/>
-    </bean>-->
-
+    </bean>
     <!--
         creates a java.util.Properties instance with values loaded from the supplied location
         properties
      -->
 <!--    <util:properties id="validation" location="classpath:messenger/message/validator/validation.properties"/>-->
-    <util:properties id="code"        location="classpath*:props/common-properties.xml"/>
-    <util:properties id="dbconfig"  location="classpath*:props/datasource-properties.xml"/>
+    <util:properties id="code"       location="classpath*:props/common-properties.xml"/>
+    <util:properties id="dbconfig"   location="classpath*:props/datasource-properties.xml"/>
     <util:properties id="etc"  location="classpath*:props/env-properties.xml"/>
 </beans>
