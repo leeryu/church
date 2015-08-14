@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -104,6 +105,7 @@ public class BbsDataController {
 
         model.addAttribute("resultMap",new BbsDataVo());
         model.addAttribute("cmd", ComConstants.INSERT.toString());
+        model.addAttribute("method", HttpMethod.POST.toString());
 
         return "hmpg/bbs/BbsDataForm";
     }
@@ -122,6 +124,7 @@ public class BbsDataController {
 
         model.addAttribute("cmd", ComConstants.UPDATE.toString());
         model.addAttribute("resultMap",bbsDataService.select(bbsDataVo));
+        model.addAttribute("method", HttpMethod.PUT.toString());
 
         return "hmpg/bbs/BbsDataForm";
     }

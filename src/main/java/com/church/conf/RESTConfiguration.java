@@ -1,5 +1,6 @@
 package com.church.conf;
 
+import com.fasterxml.jackson.core.JsonEncoding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.View;
@@ -17,6 +18,7 @@ public class RESTConfiguration {
     public View jsonTemplate() {
         MappingJackson2JsonView view = new MappingJackson2JsonView();
         view.setPrettyPrint(true);
+        view.setEncoding(JsonEncoding.UTF8);
         return view;
     }
 

@@ -18,6 +18,7 @@
 
 <ctags:breadcrumb/>
 <form:form id="form1" method="get" commandName="resultMap">
+    <input type="hidden" name="_method" value="PUT">
     <div class="row">
         <div class="form-group">
             <label for="dataTitle">제목</label>
@@ -56,14 +57,14 @@
     });
 
     function whenListPage() {
-        $(form1).prop("method","get")
+        $(form1).prop("method","GET")
                 .prop("action", "/hmpg/boards/" +${bbsDataVo.boardSid})
                 .submit();
     }
 
     function whenSave() {
         if(!whenSaveValidation()) return;
-        $(form1).prop("method",'PUT')
+        $(form1).prop("method",'${method}')
                 .prop("action", "${saveUrl}")
                 .submit();
     }

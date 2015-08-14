@@ -2,6 +2,7 @@ package com.church.hmpg.bbs.vo;
 
 import com.church.common.vo.ComDefaultVO;
 import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.Date;
 
 /**
